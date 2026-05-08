@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Studio DH | Premium Tapicerka Samochodowa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS RESET & ZMIENNE */
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --accent-color: #d4af37; /* Złoty akcent premium */
+            --accent-hover: #b5952f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-main);
+            transition: color 0.3s ease;
+        }
+
+        /* NAWIGACJA */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* SEKCJE WSPÓLNE */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* USŁUGI (KARTY) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background-color: var(--surface-color);
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* GALERIA */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        /* KONTAKT */
+        .contact-container {
+            display: flex;
+            gap: 60px;
+            background-color: var(--surface-color);
+            padding: 60px;
+            border-radius: 8px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-info strong {
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border: 1px solid #444;
+            color: var(--text-main);
+            font-family: inherit;
+            border-radius: 4px;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #0a0a0a;
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+        }
+
+        /* RWD */
+        @media(max-width: 768px) {
+            nav { padding: 20px; }
+            .nav-links { display: none; /* W prawdziwej wersji tu dajemy hamburger menu */ }
+            .hero h1 { font-size: 2.5rem; }
+            .contact-container { flex-direction: column; padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AUTO STUDIO DH</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Start</a></li>
+            <li><a href="#uslugi">Usługi</a></li>
+            <li><a href="#galeria">Realizacje</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <header id="hero" class="hero">
+        <h1>Wnętrza, które zmieniają perspektywę</h1>
+        <p>Luksusowa tapicerka samochodowa w sercu Nysy. Prestiż, styl i dbałość o każdy detal. Odmień wnętrze swojego auta z Auto Studio DH.</p>
+        <a href="#uslugi" class="btn">Poznaj Ofertę</a>
+    </header>
+
+    <section id="uslugi">
+        <div class="section-header">
+            <p>Nasza Oferta</p>
+            <h2>Rzemiosło w każdym detalu</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Renowacja Foteli</h3>
+                <p>Naturalna skóra, alcantara oraz tkaniny premium. Idealne dopasowanie i ręczne przeszycia, które zapewniają nowoczesny styl i wyższy komfort jazdy.</p>
+            </div>
+            <div class="service-card">
+                <h3>Obszywanie Kierownic</h3>
+                <p>Przywracamy świetność zużytym kierownicom. Tworzymy unikalne projekty dopasowane do dłoni kierowcy, gwarantujące pewny chwyt i elegancję.</p>
+            </div>
+            <div class="service-card">
+                <h3>Elementy Wnętrza</h3>
+                <p>Kompleksowe oklejanie plastików, renowacja podsufitek, obszywanie boczków drzwi i uchwytów. Tworzymy spójny, luksusowy charakter Twojego auta.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" style="background-color: var(--surface-color);">
+        <div class="section-header">
+            <p>Standard Premium</p>
+            <h2>Nasze Realizacje</h2>
+        </div>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80" alt="Kierownica" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80" alt="Wnętrze Premium" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80" alt="Fotele samochodowe" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80" alt="Detale tapicerki" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" alt="Alcantara" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=800&q=80" alt="Skórzane fotele" class="gallery-item">
+        </div>
+    </section>
+
+    <section id="kontakt">
+        <div class="section-header">
+            <p>Zapraszamy do pracowni</p>
+            <h2>Porozmawiajmy o Twoim aucie</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Auto Studio DH<br>Denys Haivoronskyi</h3>
+                <p>
+                    <strong>Adres:</strong>
+                    ul. Władysława Orkana 1, Pawilon 2<br>
+                    48-303 Nysa, Polska
+                </p>
+                <p>
+                    <strong>Telefon:</strong>
+                    Zadzwoń do nas, aby wycenić projekt (Numer ukryty, wstaw prawdziwy)
+                </p>
+                <p>
+                    <strong>Godziny otwarcia:</strong>
+                    Pn - Pt: 09:00 - 17:00
+                </p>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Twoje imię i nazwisko" required>
+                <input type="tel" placeholder="Numer telefonu" required>
+                <input type="email" placeholder="Adres e-mail">
+                <textarea placeholder="Wiadomość (np. marka auta i zakres prac)" required></textarea>
+                <button type="submit" class="btn" style="border: none; cursor: pointer;">Wyślij Wiadomość</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Auto Studio DH. Wszelkie prawa zastrzeżone. | Projekt inspirowany nowoczesnymi standardami Premium.
+    </footer>
+
+</body>
+</html>
