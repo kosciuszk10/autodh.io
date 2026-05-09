@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Studio DH | Premium Tapicerka Samochodowa</title>
+    <title>Auto Studio DH | Luksusowa Tapicerka Samochodowa</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
     <style>
-        /* CSS RESET & ZMIENNE */
+        /* RESET & ZMIENNE LUXURY */
         :root {
-            --bg-color: #121212;
-            --surface-color: #1e1e1e;
-            --text-main: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --accent-color: #d4af37; /* Złoty akcent premium */
-            --accent-hover: #b5952f;
+            --bg-dark: #050505;
+            --bg-lighter: #111111;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent: #d32f2f; /* Czerwony akcent w stylu Brabusa/Carlex */
         }
 
         * {
@@ -30,180 +33,251 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
+        h1, h2, h3 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         a {
             text-decoration: none;
             color: var(--text-main);
-            transition: color 0.3s ease;
+            transition: 0.3s;
         }
 
-        /* NAWIGACJA */
+        /* NAWIGACJA (Minimalistyczna, przyklejona) */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(18, 18, 18, 0.95);
-            padding: 20px 50px;
+            padding: 25px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
             z-index: 1000;
-            border-bottom: 1px solid #333;
+            transition: background 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(5, 5, 5, 0.95);
+            border-bottom: 1px solid #222;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--accent-color);
+            letter-spacing: 4px;
+        }
+
+        .logo span {
+            color: var(--accent);
         }
 
         .nav-links {
-            list-style: none;
             display: flex;
-            gap: 30px;
+            list-style: none;
+            gap: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links a:hover {
-            color: var(--accent-color);
+            color: var(--accent);
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION (Z Wideo w tle jak Mansory) */
         .hero {
+            position: relative;
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1920&q=80') center/cover;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Przyciemnienie wideo */
+            z-index: -1;
+        }
+
+        .hero-content {
             text-align: center;
-            padding: 0 20px;
+            z-index: 1;
         }
 
-        .hero h1 {
-            font-size: 4rem;
+        .hero-content h1 {
+            font-size: 5vw;
             margin-bottom: 20px;
-            letter-spacing: 1px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
-        .hero p {
+        .hero-content p {
             font-size: 1.2rem;
-            max-width: 600px;
+            color: #ccc;
             margin-bottom: 40px;
-            color: var(--text-muted);
+            letter-spacing: 1px;
         }
 
         .btn {
             display: inline-block;
-            padding: 15px 40px;
-            background-color: var(--accent-color);
-            color: #000;
-            font-weight: 600;
-            border-radius: 4px;
+            padding: 16px 45px;
+            background-color: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background 0.3s;
+            cursor: pointer;
+            transition: all 0.4s ease;
         }
 
         .btn:hover {
-            background-color: var(--accent-hover);
+            background-color: var(--text-main);
+            color: var(--bg-dark);
         }
 
         /* SEKCJE WSPÓLNE */
         section {
-            padding: 100px 10%;
+            padding: 120px 10%;
         }
 
-        .section-header {
+        .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--accent-color);
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--text-main);
+        }
+
+        .section-title h2 span {
+            color: var(--accent);
+        }
+
+        /* USŁUGI - UKŁAD CARLEX/BRABUS */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-box {
+            background-color: var(--bg-lighter);
+            position: relative;
+            overflow: hidden;
+            group: hover;
+        }
+
+        .service-box img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            opacity: 0.6;
+        }
+
+        .service-box:hover img {
+            transform: scale(1.1);
+            opacity: 0.3;
+        }
+
+        .service-content {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.8rem;
             margin-bottom: 10px;
         }
 
-        .section-header p {
+        .service-content p {
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
             font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
         }
 
-        /* USŁUGI (KARTY) */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+        .service-box:hover .service-content p {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .service-card {
-            background-color: var(--surface-color);
-            padding: 40px 30px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #333;
-            transition: transform 0.3s, border-color 0.3s;
+        /* KARUZELA WIDEO (SWIPER) */
+        .video-section {
+            background-color: #000;
+            padding: 100px 0;
+            overflow: hidden;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-color);
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* GALERIA */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
+        .swiper {
             width: 100%;
-            height: 300px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            width: 80%;
+            max-width: 800px;
+            height: 450px;
+            transition: transform 0.4s;
+            opacity: 0.5;
+        }
+
+        .swiper-slide-active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .swiper-slide video {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             border-radius: 4px;
-            transition: opacity 0.3s;
-        }
-
-        .gallery-item:hover {
-            opacity: 0.8;
-            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
         }
 
         /* KONTAKT */
-        .contact-container {
+        .contact-wrap {
             display: flex;
-            gap: 60px;
-            background-color: var(--surface-color);
-            padding: 60px;
-            border-radius: 8px;
+            flex-wrap: wrap;
+            background: var(--bg-lighter);
+            border-top: 3px solid var(--accent);
         }
 
-        .contact-info {
+        .contact-info, .contact-form {
             flex: 1;
+            min-width: 300px;
+            padding: 60px;
         }
 
         .contact-info h3 {
@@ -212,152 +286,183 @@
         }
 
         .contact-info p {
-            margin-bottom: 15px;
             color: var(--text-muted);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .contact-info strong {
-            color: var(--text-main);
-            margin-bottom: 5px;
-        }
-
-        .contact-form {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
         }
 
         .contact-form input, .contact-form textarea {
             width: 100%;
             padding: 15px;
-            background-color: var(--bg-color);
-            border: 1px solid #444;
-            color: var(--text-main);
+            margin-bottom: 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
             font-family: inherit;
-            border-radius: 4px;
         }
 
         .contact-form input:focus, .contact-form textarea:focus {
             outline: none;
-            border-color: var(--accent-color);
+            border-color: var(--accent);
         }
 
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* FOOTER */
         footer {
-            background-color: #0a0a0a;
             text-align: center;
             padding: 30px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid #222;
+            background: #000;
+            color: #444;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* RWD */
         @media(max-width: 768px) {
-            nav { padding: 20px; }
-            .nav-links { display: none; /* W prawdziwej wersji tu dajemy hamburger menu */ }
-            .hero h1 { font-size: 2.5rem; }
-            .contact-container { flex-direction: column; padding: 30px; }
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 3rem; }
+            .swiper-slide { height: 250px; width: 90%; }
+            .contact-info, .contact-form { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">AUTO STUDIO DH</div>
+    <nav id="navbar">
+        <div class="logo">AUTO STUDIO <span>DH</span></div>
         <ul class="nav-links">
-            <li><a href="#hero">Start</a></li>
-            <li><a href="#uslugi">Usługi</a></li>
-            <li><a href="#galeria">Realizacje</a></li>
-            <li><a href="#kontakt">Kontakt</a></li>
+            <li><a href="#home">Strona Główna</a></li>
+            <li><a href="#services">Usługi</a></li>
+            <li><a href="#videos">Wideo Portfolio</a></li>
+            <li><a href="#contact">Kontakt</a></li>
         </ul>
     </nav>
 
-    <header id="hero" class="hero">
-        <h1>Wnętrza, które zmieniają perspektywę</h1>
-        <p>Luksusowa tapicerka samochodowa w sercu Nysy. Prestiż, styl i dbałość o każdy detal. Odmień wnętrze swojego auta z Auto Studio DH.</p>
-        <a href="#uslugi" class="btn">Poznaj Ofertę</a>
+    <header id="home" class="hero">
+        <video autoplay loop muted playsinline>
+            <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1>Sztuka <span>Wnętrza</span></h1>
+            <p>Bezkompromisowa jakość. Rzemiosło w każdym szwie.</p>
+            <a href="#services" class="btn">Odkryj Możliwości</a>
+        </div>
     </header>
 
-    <section id="uslugi">
-        <div class="section-header">
-            <p>Nasza Oferta</p>
-            <h2>Rzemiosło w każdym detalu</h2>
+    <section id="services">
+        <div class="section-title">
+            <h2>Nasza <span>Ekspertyza</span></h2>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Renowacja Foteli</h3>
-                <p>Naturalna skóra, alcantara oraz tkaniny premium. Idealne dopasowanie i ręczne przeszycia, które zapewniają nowoczesny styl i wyższy komfort jazdy.</p>
+        <div class="services-container">
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800" alt="Fotele">
+                <div class="service-content">
+                    <h3>Tapicerka Foteli</h3>
+                    <p>Skóra nappa, alcantara, perforacje na życzenie. Projektujemy od nowa ergonomię i luksus każdego siedziska.</p>
+                </div>
             </div>
-            <div class="service-card">
-                <h3>Obszywanie Kierownic</h3>
-                <p>Przywracamy świetność zużytym kierownicom. Tworzymy unikalne projekty dopasowane do dłoni kierowcy, gwarantujące pewny chwyt i elegancję.</p>
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=800" alt="Kierownice">
+                <div class="service-content">
+                    <h3>Kierownice</h3>
+                    <p>Sportowe profilowanie, pogrubianie, wykończenia w karbonie oraz najwyższej klasy ręczne obszycia.</p>
+                </div>
             </div>
-            <div class="service-card">
-                <h3>Elementy Wnętrza</h3>
-                <p>Kompleksowe oklejanie plastików, renowacja podsufitek, obszywanie boczków drzwi i uchwytów. Tworzymy spójny, luksusowy charakter Twojego auta.</p>
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=800" alt="Detale">
+                <div class="service-content">
+                    <h3>Detale i Sufity</h3>
+                    <p>Podsufitki "Gwiaździste Niebo", boczki drzwi, karbonowe dekory. Spójność koncepcji w najdrobniejszych szczegółach.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="galeria" style="background-color: var(--surface-color);">
-        <div class="section-header">
-            <p>Standard Premium</p>
-            <h2>Nasze Realizacje</h2>
+    <section id="videos" class="video-section">
+        <div class="section-title">
+            <h2>Wideo <span>Realizacje</span></h2>
         </div>
-        <div class="gallery-grid">
-            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80" alt="Kierownica" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80" alt="Wnętrze Premium" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80" alt="Fotele samochodowe" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80" alt="Detale tapicerki" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" alt="Alcantara" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=800&q=80" alt="Skórzane fotele" class="gallery-item">
+        
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://cdn.pixabay.com/video/2019/10/22/28221-368735821_large.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="swiper-slide">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="swiper-slide">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://cdn.pixabay.com/video/2019/10/22/28221-368735821_large.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
     </section>
 
-    <section id="kontakt">
-        <div class="section-header">
-            <p>Zapraszamy do pracowni</p>
-            <h2>Porozmawiajmy o Twoim aucie</h2>
-        </div>
-        <div class="contact-container">
+    <section id="contact">
+        <div class="contact-wrap">
             <div class="contact-info">
-                <h3>Auto Studio DH<br>Denys Haivoronskyi</h3>
-                <p>
-                    <strong>Adres:</strong>
-                    ul. Władysława Orkana 1, Pawilon 2<br>
-                    48-303 Nysa, Polska
-                </p>
-                <p>
-                    <strong>Telefon:</strong>
-                    Zadzwoń do nas, aby wycenić projekt (Numer ukryty, wstaw prawdziwy)
-                </p>
-                <p>
-                    <strong>Godziny otwarcia:</strong>
-                    Pn - Pt: 09:00 - 17:00
-                </p>
+                <h3>Skontaktuj się z <br><span>Auto Studio DH</span></h3>
+                <p>Nysa, Władysława Orkana 1, Pawilon 2</p>
+                <p>Porozmawiajmy o transformacji Twojego samochodu. Oferujemy indywidualne doradztwo projektowe.</p>
+                <br>
+                <h3 style="font-size: 1.5rem;">+48 000 000 000</h3>
             </div>
-            <form class="contact-form">
-                <input type="text" placeholder="Twoje imię i nazwisko" required>
-                <input type="tel" placeholder="Numer telefonu" required>
-                <input type="email" placeholder="Adres e-mail">
-                <textarea placeholder="Wiadomość (np. marka auta i zakres prac)" required></textarea>
-                <button type="submit" class="btn" style="border: none; cursor: pointer;">Wyślij Wiadomość</button>
-            </form>
+            <div class="contact-form">
+                <form>
+                    <input type="text" placeholder="Twoje Imię" required>
+                    <input type="text" placeholder="Marka i model samochodu" required>
+                    <textarea rows="4" placeholder="Opisz swój projekt (np. obszycie foteli, kierownicy)..."></textarea>
+                    <button type="submit" class="btn" style="width: 100%; border-color: var(--accent);">Wyślij Zapytanie</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <footer>
-        &copy; 2026 Auto Studio DH. Wszelkie prawa zastrzeżone. | Projekt inspirowany nowoczesnymi standardami Premium.
+        &copy; 2026 AUTO STUDIO DH. ZAINSPIROWANE NAJLEPSZYMI.
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // Efekt pojawiającego się tła nawigacji przy scrollowaniu
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Inicjalizacja Karuzeli Wideo (Swiper)
+        var swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            }
+        });
+    </script>
 </body>
 </html>
