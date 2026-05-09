@@ -3,466 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Studio DH | Luksusowa Tapicerka Samochodowa</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
+    <title>Конфигуратор Интерьера | Auto Studio DH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <style>
-        /* RESET & ZMIENNE LUXURY */
         :root {
-            --bg-dark: #050505;
-            --bg-lighter: #111111;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --accent: #d32f2f; /* Czerwony akcent w stylu Brabusa/Carlex */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-main: #f5f5f5;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--text-main);
-            transition: 0.3s;
-        }
-
-        /* NAWIGACJA (Minimalistyczna, przyklejona) */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 25px 50px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-            z-index: 1000;
-            transition: background 0.3s;
-        }
-
-        nav.scrolled {
-            background: rgba(5, 5, 5, 0.95);
-            border-bottom: 1px solid #222;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 4px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* HERO SECTION (Z Wideo w tle jak Mansory) */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
-        .hero video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            z-index: -2;
-            object-fit: cover;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* Przyciemnienie wideo */
-            z-index: -1;
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 1;
-        }
-
-        .hero-content h1 {
-            font-size: 5vw;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 45px;
-            background-color: transparent;
-            color: var(--text-main);
-            border: 2px solid var(--text-main);
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .btn:hover {
-            background-color: var(--text-main);
-            color: var(--bg-dark);
-        }
-
-        /* SEKCJE WSPÓLNE */
-        section {
-            padding: 120px 10%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-title h2 {
-            font-size: 3rem;
-            color: var(--text-main);
-        }
-
-        .section-title h2 span {
-            color: var(--accent);
-        }
-
-        /* USŁUGI - UKŁAD CARLEX/BRABUS */
-        .services-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-box {
-            background-color: var(--bg-lighter);
-            position: relative;
-            overflow: hidden;
-            group: hover;
-        }
-
-        .service-box img {
+        .configurator-container {
+            background-color: var(--surface-color);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            max-width: 900px;
             width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-            opacity: 0.6;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
         }
 
-        .service-box:hover img {
-            transform: scale(1.1);
-            opacity: 0.3;
+        /* Блок с изображением */
+        .preview-box {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #000;
         }
 
-        .service-content {
+        .preview-box img {
+            width: 100%;
+            display: block;
+            /* Делаем базовое фото черно-белым для чистого наложения цвета */
+            filter: grayscale(100%) contrast(1.2); 
+        }
+
+        /* Слой цвета, который накладывается поверх фото */
+        .color-overlay {
             position: absolute;
-            bottom: 30px;
-            left: 30px;
-            right: 30px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #8b0000; /* Цвет по умолчанию (Bordeaux) */
+            /* Магия CSS: режим наложения цвета, сохраняющий тени и блики */
+            mix-blend-mode: color; 
+            transition: background-color 0.5s ease;
+            pointer-events: none; /* Чтобы слой не мешал кликать, если поверх будут другие элементы */
         }
 
-        .service-content h3 {
-            font-size: 1.8rem;
+        /* Блок управления цветами */
+        .controls {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .controls h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             margin-bottom: 10px;
         }
 
-        .service-content p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
+        .controls p {
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
-        .service-box:hover .service-content p {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* KARUZELA WIDEO (SWIPER) */
-        .video-section {
-            background-color: #000;
-            padding: 100px 0;
-            overflow: hidden;
-        }
-
-        .swiper {
-            width: 100%;
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
-
-        .swiper-slide {
-            width: 80%;
-            max-width: 800px;
-            height: 450px;
-            transition: transform 0.4s;
-            opacity: 0.5;
-        }
-
-        .swiper-slide-active {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        .swiper-slide video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-        }
-
-        /* KONTAKT */
-        .contact-wrap {
+        .color-options {
             display: flex;
+            gap: 15px;
             flex-wrap: wrap;
-            background: var(--bg-lighter);
-            border-top: 3px solid var(--accent);
         }
 
-        .contact-info, .contact-form {
-            flex: 1;
-            min-width: 300px;
-            padding: 60px;
+        .color-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .contact-info h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        .color-btn:hover {
+            transform: scale(1.1);
         }
 
-        .contact-info p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
+        .color-btn.active {
+            border-color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Подписи к цветам */
+        .selected-color-name {
+            margin-top: 20px;
+            font-weight: 600;
             font-size: 1.1rem;
-        }
-
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #fff;
-            font-family: inherit;
-        }
-
-        .contact-form input:focus, .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #000;
-            color: #444;
-            font-size: 0.8rem;
-            text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        @media(max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-content h1 { font-size: 3rem; }
-            .swiper-slide { height: 250px; width: 90%; }
-            .contact-info, .contact-form { padding: 30px; }
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <nav id="navbar">
-        <div class="logo">AUTO STUDIO <span>DH</span></div>
-        <ul class="nav-links">
-            <li><a href="#home">Strona Główna</a></li>
-            <li><a href="#services">Usługi</a></li>
-            <li><a href="#videos">Wideo Portfolio</a></li>
-            <li><a href="#contact">Kontakt</a></li>
-        </ul>
-    </nav>
-
-    <header id="home" class="hero">
-        <video autoplay loop muted playsinline>
-            <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
-        </video>
-        <div class="hero-content">
-            <h1>Sztuka <span>Wnętrza</span></h1>
-            <p>Bezkompromisowa jakość. Rzemiosło w każdym szwie.</p>
-            <a href="#services" class="btn">Odkryj Możliwości</a>
+    <div class="configurator-container">
+        <div class="preview-box">
+            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80" alt="Салон авто">
+            <div class="color-overlay" id="car-overlay"></div>
         </div>
-    </header>
 
-    <section id="services">
-        <div class="section-title">
-            <h2>Nasza <span>Ekspertyza</span></h2>
-        </div>
-        <div class="services-container">
-            <div class="service-box">
-                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800" alt="Fotele">
-                <div class="service-content">
-                    <h3>Tapicerka Foteli</h3>
-                    <p>Skóra nappa, alcantara, perforacje na życzenie. Projektujemy od nowa ergonomię i luksus każdego siedziska.</p>
-                </div>
+        <div class="controls">
+            <h2>Свой стиль</h2>
+            <p>Выберите цвет кожи или алькантары для вашего проекта. Наш конфигуратор поможет представить будущий результат.</p>
+            
+            <div class="color-options">
+                <button class="color-btn active" style="background-color: #8b0000;" data-color="#8b0000" data-name="Bordeaux Red"></button>
+                <button class="color-btn" style="background-color: #d4af37;" data-color="#d4af37" data-name="Sahara Gold"></button>
+                <button class="color-btn" style="background-color: #8B4513;" data-color="#8B4513" data-name="Cognac Brown"></button>
+                <button class="color-btn" style="background-color: #2F4F4F;" data-color="#2F4F4F" data-name="Emerald Green"></button>
+                <button class="color-btn" style="background-color: #111111;" data-color="#111111" data-name="Carbon Black"></button>
             </div>
-            <div class="service-box">
-                <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=800" alt="Kierownice">
-                <div class="service-content">
-                    <h3>Kierownice</h3>
-                    <p>Sportowe profilowanie, pogrubianie, wykończenia w karbonie oraz najwyższej klasy ręczne obszycia.</p>
-                </div>
-            </div>
-            <div class="service-box">
-                <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=800" alt="Detale">
-                <div class="service-content">
-                    <h3>Detale i Sufity</h3>
-                    <p>Podsufitki "Gwiaździste Niebo", boczki drzwi, karbonowe dekory. Spójność koncepcji w najdrobniejszych szczegółach.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="videos" class="video-section">
-        <div class="section-title">
-            <h2>Wideo <span>Realizacje</span></h2>
+            <div class="selected-color-name" id="color-label">Bordeaux Red</div>
         </div>
-        
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <video autoplay loop muted playsinline>
-                        <source src="https://cdn.pixabay.com/video/2019/10/22/28221-368735821_large.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="swiper-slide">
-                    <video autoplay loop muted playsinline>
-                        <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="swiper-slide">
-                    <video autoplay loop muted playsinline>
-                        <source src="https://cdn.pixabay.com/video/2019/10/22/28221-368735821_large.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
+    </div>
 
-    <section id="contact">
-        <div class="contact-wrap">
-            <div class="contact-info">
-                <h3>Skontaktuj się z <br><span>Auto Studio DH</span></h3>
-                <p>Nysa, Władysława Orkana 1, Pawilon 2</p>
-                <p>Porozmawiajmy o transformacji Twojego samochodu. Oferujemy indywidualne doradztwo projektowe.</p>
-                <br>
-                <h3 style="font-size: 1.5rem;">+48 000 000 000</h3>
-            </div>
-            <div class="contact-form">
-                <form>
-                    <input type="text" placeholder="Twoje Imię" required>
-                    <input type="text" placeholder="Marka i model samochodu" required>
-                    <textarea rows="4" placeholder="Opisz swój projekt (np. obszycie foteli, kierownicy)..."></textarea>
-                    <button type="submit" class="btn" style="width: 100%; border-color: var(--accent);">Wyślij Zapytanie</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        &copy; 2026 AUTO STUDIO DH. ZAINSPIROWANE NAJLEPSZYMI.
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        // Efekt pojawiającego się tła nawigacji przy scrollowaniu
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
+        // Получаем элементы
+        const buttons = document.querySelectorAll('.color-btn');
+        const overlay = document.getElementById('car-overlay');
+        const colorLabel = document.getElementById('color-label');
 
-        // Inicjalizacja Karuzeli Wideo (Swiper)
-        var swiper = new Swiper(".mySwiper", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            loop: true,
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 0,
-                depth: 200,
-                modifier: 1,
-                slideShadows: true,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
-            }
+        // Добавляем обработчик событий на каждую кнопку
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Убираем класс active у всех кнопок
+                buttons.forEach(btn => btn.classList.remove('active'));
+                
+                // Добавляем класс active нажатой кнопке
+                this.classList.add('active');
+
+                // Получаем цвет и название из data-атрибутов
+                const newColor = this.getAttribute('data-color');
+                const newName = this.getAttribute('data-name');
+
+                // Применяем новый цвет к наложению
+                overlay.style.backgroundColor = newColor;
+                
+                // Обновляем текст
+                colorLabel.textContent = newName;
+            });
         });
     </script>
+
 </body>
 </html>
