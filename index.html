@@ -3,176 +3,516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конфигуратор Интерьера | Auto Studio DH</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <title>Auto Studio DH | Premium Tapicerka Samochodowa</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
     <style>
+        /* CSS RESET & ZMIENNE */
         :root {
             --bg-color: #121212;
             --surface-color: #1e1e1e;
             --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --accent-color: #d4af37; /* Złoty akcent premium */
+            --accent-hover: #b5952f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-main);
+            transition: color 0.3s ease;
+        }
+
+        /* NAWIGACJA */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 20px 50px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        .logo-white {
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Ikona Hamburger Menu (ukryta na desktopie) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-main);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* HERO SECTION Z WIDEO W TLE */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            text-align: center;
+            padding: 0 20px;
+            overflow: hidden; /* Ukrywa wystające fragmenty wideo */
         }
 
-        .configurator-container {
-            background-color: var(--surface-color);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            max-width: 900px;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: center;
-        }
-
-        /* Блок с изображением */
-        .preview-box {
-            position: relative;
-            flex: 1;
-            min-width: 300px;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        .preview-box img {
-            width: 100%;
-            display: block;
-            /* Делаем базовое фото черно-белым для чистого наложения цвета */
-            filter: grayscale(100%) contrast(1.2); 
-        }
-
-        /* Слой цвета, который накладывается поверх фото */
-        .color-overlay {
+        .hero-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        /* Ciemna nakładka, żeby tekst był czytelny */
+        .hero-overlay {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
             height: 100%;
-            background-color: #8b0000; /* Цвет по умолчанию (Bordeaux) */
-            /* Магия CSS: режим наложения цвета, сохраняющий тени и блики */
-            mix-blend-mode: color; 
-            transition: background-color 0.5s ease;
-            pointer-events: none; /* Чтобы слой не мешал кликать, если поверх будут другие элементы */
+            background: rgba(0, 0, 0, 0.7); 
+            z-index: -1;
         }
 
-        /* Блок управления цветами */
-        .controls {
-            flex: 1;
-            min-width: 300px;
+        .hero-content {
+            z-index: 1; /* Podnosi tekst ponad wideo i nakładkę */
         }
 
-        .controls h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* SEKCJE WSPÓLNE */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
             margin-bottom: 10px;
         }
 
-        .controls p {
-            color: #a0a0a0;
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .color-options {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .color-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: transform 0.3s, border-color 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .color-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .color-btn.active {
-            border-color: #fff;
-            transform: scale(1.1);
-        }
-
-        /* Подписи к цветам */
-        .selected-color-name {
-            margin-top: 20px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+        .section-header p {
+            color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* USŁUGI (KARTY) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background-color: var(--surface-color);
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* KARUZELA GALERII (SWIPER) */
+        .swiper-container-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .gallery-swiper {
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .swiper-slide {
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper-slide img, .swiper-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--accent-color) !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: var(--accent-color) !important;
+        }
+
+        /* KONTAKT */
+        .contact-container {
+            display: flex;
+            gap: 60px;
+            background-color: var(--surface-color);
+            padding: 60px;
+            border-radius: 8px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-info strong {
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border: 1px solid #444;
+            color: var(--text-main);
+            font-family: inherit;
+            border-radius: 4px;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #0a0a0a;
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+        }
+
+        /* RWD */
+        @media(max-width: 768px) {
+            nav { padding: 20px; }
+            .hamburger { display: flex; }
+            .nav-links { 
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 20px 0;
+                border-bottom: 1px solid #333;
+                transition: max-height 0.3s ease;
+                max-height: 0;
+                overflow: hidden;
+            }
+            .nav-links.active { max-height: 300px; }
+            .nav-links li { margin: 10px 0; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .gallery-swiper { height: 300px; }
+            .contact-container { flex-direction: column; padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="configurator-container">
-        <div class="preview-box">
-            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80" alt="Салон авто">
-            <div class="color-overlay" id="car-overlay"></div>
+    <nav>
+        <div class="logo"><span class="logo-white">DH</span> AUTO STUDIO</div>
+        
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
 
-        <div class="controls">
-            <h2>Свой стиль</h2>
-            <p>Выберите цвет кожи или алькантары для вашего проекта. Наш конфигуратор поможет представить будущий результат.</p>
-            
-            <div class="color-options">
-                <button class="color-btn active" style="background-color: #8b0000;" data-color="#8b0000" data-name="Bordeaux Red"></button>
-                <button class="color-btn" style="background-color: #d4af37;" data-color="#d4af37" data-name="Sahara Gold"></button>
-                <button class="color-btn" style="background-color: #8B4513;" data-color="#8B4513" data-name="Cognac Brown"></button>
-                <button class="color-btn" style="background-color: #2F4F4F;" data-color="#2F4F4F" data-name="Emerald Green"></button>
-                <button class="color-btn" style="background-color: #111111;" data-color="#111111" data-name="Carbon Black"></button>
+        <ul class="nav-links">
+            <li><a href="#hero">Start</a></li>
+            <li><a href="#uslugi">Usługi</a></li>
+            <li><a href="#galeria">Realizacje</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <header id="hero" class="hero">
+        <video autoplay loop muted playsinline class="hero-video">
+            <source src="https://www.dropbox.com/scl/fi/jcul9oo5bvaepddm8g9ud/video_2026-05-09_13-23-58.mp4?rlkey=9irxv10in8y7ngv2c9jqz5z1z&st=4j1fklew&raw=1" type="video/mp4">
+        </video>
+        
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1>Wnętrza, które zmieniają perspektywę</h1>
+            <p>Luksusowa tapicerka samochodowa w sercu Nysy. Prestiż, styl i dbałość o każdy detal. Odmień wnętrze swojego auta z Auto Studio DH.</p>
+            <a href="#uslugi" class="btn">Poznaj Ofertę</a>
+        </div>
+    </header>
+
+    <section id="uslugi">
+        <div class="section-header">
+            <p>Nasza Oferta</p>
+            <h2>Rzemiosło w każdym detalu</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Renowacja Foteli</h3>
+                <p>Naturalna skóra, alcantara oraz tkaniny premium. Idealne dopasowanie i ręczne przeszycia, które zapewniają nowoczesny styl i wyższy komfort jazdy.</p>
             </div>
-
-            <div class="selected-color-name" id="color-label">Bordeaux Red</div>
+            <div class="service-card">
+                <h3>Obszywanie Kierownic</h3>
+                <p>Przywracamy świetność zużytym kierownicom. Tworzymy unikalne projekty dopasowane do dłoni kierowcy, gwarantujące pewny chwyt i elegancję.</p>
+            </div>
+            <div class="service-card">
+                <h3>Elementy Wnętrza</h3>
+                <p>Kompleksowe oklejanie plastików, renowacja podsufitek, obszywanie boczków drzwi i uchwytów. Tworzymy spójny, luksusowy charakter Twojego auta.</p>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <section id="galeria" style="background-color: var(--surface-color);">
+        <div class="section-header">
+            <p>Standard Premium</p>
+            <h2>Nasze Realizacje</h2>
+        </div>
+        
+        <div class="swiper-container-wrapper">
+            <div class="swiper gallery-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1000&q=80" alt="Kierownica">
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80" alt="Wnętrze Premium">
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <video autoplay loop muted playsinline>
+                            <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80" alt="Alcantara">
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="kontakt">
+        <div class="section-header">
+            <p>Zapraszamy do pracowni</p>
+            <h2>Porozmawiajmy o Twoim aucie</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Auto Studio DH<br>Denys Haivoronskyi</h3>
+                <p>
+                    <strong>Adres:</strong>
+                    ul. Władysława Orkana 1, Pawilon 2<br>
+                    48-303 Nysa, Polska
+                </p>
+                <p>
+                    <strong>Telefon:</strong>
+                    Zadzwoń do nas, aby wycenić projekt (Numer ukryty, wstaw prawdziwy)
+                </p>
+                <p>
+                    <strong>Godziny otwarcia:</strong>
+                    Pn - Pt: 09:00 - 17:00
+                </p>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Twoje imię i nazwisko" required>
+                <input type="tel" placeholder="Numer telefonu" required>
+                <input type="email" placeholder="Adres e-mail">
+                <textarea placeholder="Wiadomość (np. marka auta i zakres prac)" required></textarea>
+                <button type="submit" class="btn" style="border: none; cursor: pointer;">Wyślij Wiadomość</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Auto Studio DH. Wszelkie prawa zastrzeżone. | Projekt inspirowany nowoczesnymi standardami Premium.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        // Получаем элементы
-        const buttons = document.querySelectorAll('.color-btn');
-        const overlay = document.getElementById('car-overlay');
-        const colorLabel = document.getElementById('color-label');
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links li');
 
-        // Добавляем обработчик событий на каждую кнопку
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Убираем класс active у всех кнопок
-                buttons.forEach(btn => btn.classList.remove('active'));
-                
-                // Добавляем класс active нажатой кнопке
-                this.classList.add('active');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
 
-                // Получаем цвет и название из data-атрибутов
-                const newColor = this.getAttribute('data-color');
-                const newName = this.getAttribute('data-name');
-
-                // Применяем новый цвет к наложению
-                overlay.style.backgroundColor = newColor;
-                
-                // Обновляем текст
-                colorLabel.textContent = newName;
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
             });
         });
-    </script>
 
+        const swiper = new Swiper('.gallery-swiper', {
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
 </body>
 </html>
