@@ -144,7 +144,7 @@
             left: 0; 
             width: 100%; 
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Było 0.75, teraz 0.4 (znacznie jaśniej) */
+            background: rgba(0, 0, 0, 0.4); 
             z-index: -1;
         }
 
@@ -163,7 +163,7 @@
             font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto 40px auto;
-            color: var(--text-main); /* Zmienione na czystszy biały, by lepiej odcinał się od tła */
+            color: var(--text-main); 
             font-weight: 400;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
@@ -244,7 +244,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Było 0.85, teraz 0.4 */
+            background: rgba(0, 0, 0, 0.4); 
             z-index: -1;
         }
 
@@ -261,7 +261,7 @@
         }
 
         .service-card {
-            background-color: rgba(20, 20, 20, 0.6); /* Delikatnie zwiększona widoczność tła fiszki, by tekst był czytelniejszy na jasnym filmie */
+            background-color: rgba(20, 20, 20, 0.6); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 50px 30px;
@@ -395,7 +395,7 @@
 
         .swiper-button-next, .swiper-button-prev {
             color: var(--accent-color) !important;
-            text-shadow: 0px 0px 5px rgba(0,0,0,0.8); /* Cień pod strzałkami dla lepszej widoczności */
+            text-shadow: 0px 0px 5px rgba(0,0,0,0.8); 
         }
 
         .swiper-pagination-bullet-active {
@@ -534,8 +534,8 @@
         <ul class="nav-links">
             <li><a href="#hero">Start</a></li>
             <li><a href="#uslugi">Usługi</a></li>
-            <li><a href="#konfigurator">Konfigurator</a></li>
             <li><a href="#galeria">Realizacje</a></li>
+            <li><a href="#konfigurator">Konfigurator</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
         </ul>
     </nav>
@@ -582,6 +582,44 @@
         </div>
     </section>
 
+    <section id="galeria" class="video-section-bg">
+        <video autoplay loop muted playsinline class="section-bg-video">
+            <source src="https://www.dropbox.com/scl/fi/zxqh402fm146a3bdmoa5q/video_2026-05-09_14-24-19.mp4?rlkey=l2hi2hl8vnjy1f59375u58way&st=aw7mr13i&raw=1" type="video/mp4">
+        </video>
+        <div class="section-bg-overlay" style="background: rgba(0, 0, 0, 0.4);"></div>
+
+        <div class="section-content-wrapper">
+            <div class="section-header">
+                <p>Standard Premium</p>
+                <h2>Nasze <span>Realizacje</span></h2>
+            </div>
+            
+            <div class="swiper-container-wrapper">
+                <div class="swiper gallery-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1000&q=80" alt="Kierownica">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80" alt="Wnętrze Premium">
+                        </div>
+                        <div class="swiper-slide">
+                            <video autoplay loop muted playsinline>
+                                <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80" alt="Alcantara">
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="konfigurator" style="background-color: var(--bg-color);">
         <div class="section-header">
             <p>Personalizacja</p>
@@ -621,44 +659,6 @@
                     <button class="color-swatch" style="background-color: #e3dac9;" 
                             data-image="https://placehold.co/1000x600/e3dac9/000000?text=Zdjecie+Bone+White" 
                             data-name="Bone White"></button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="galeria" class="video-section-bg">
-        <video autoplay loop muted playsinline class="section-bg-video">
-            <source src="https://www.dropbox.com/scl/fi/zxqh402fm146a3bdmoa5q/video_2026-05-09_14-24-19.mp4?rlkey=l2hi2hl8vnjy1f59375u58way&st=aw7mr13i&raw=1" type="video/mp4">
-        </video>
-        <div class="section-bg-overlay" style="background: rgba(0, 0, 0, 0.4);"></div>
-
-        <div class="section-content-wrapper">
-            <div class="section-header">
-                <p>Standard Premium</p>
-                <h2>Nasze <span>Realizacje</span></h2>
-            </div>
-            
-            <div class="swiper-container-wrapper">
-                <div class="swiper gallery-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1000&q=80" alt="Kierownica">
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80" alt="Wnętrze Premium">
-                        </div>
-                        <div class="swiper-slide">
-                            <video autoplay loop muted playsinline>
-                                <source src="https://cdn.pixabay.com/video/2021/08/25/86266-592862908_large.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80" alt="Alcantara">
-                        </div>
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>
